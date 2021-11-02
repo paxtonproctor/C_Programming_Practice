@@ -19,6 +19,38 @@ void printList(struct Node* n) {
     n = n->next;
   }
 }
+/*
+This Function passes in a pointer to pointer ref and a key and will delete the key occurrence in the link list.
+*/
+void deleteNode(struct Node** head_ref, int key) {
+
+  // Store head node
+  struct Node *temp = *head_ref, *prev;
+
+  // If head node itself holds the key to be deleted
+  if (temp != NULL && temp->data == key) {
+    *head_ref = temp->next; // changes head
+    free(temp);
+    return;
+  }
+
+  // search for key to be deleted, keep track of the previous node
+  while (temp != NULL && temp->data != key) {
+    prev = temp;
+    temp = temp->next;
+  }
+
+  // if key was not present in linked list
+  if (temp == NULL) {
+    return;
+  }
+
+  // Unlink the node from linked list
+  prev->next = temp->next;
+
+  free(temp);
+}
+
 /* This function has a pointer to pointer and a new data
 That will be inserted in the front of the list
 */
@@ -142,6 +174,11 @@ int main(void) {
   insertAfter(head->next, 8);
  
   printf("\n Created Linked list is: ");
+  printList(head);
+
+  // calls deletenode function
+  deleteNode(&head, 1);
+  printf("\n Linked List after Deletion of 1: ");
   printList(head);
   return 0;
 }
