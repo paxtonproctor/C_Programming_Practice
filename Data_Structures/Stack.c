@@ -10,7 +10,10 @@
 
 // function prototypes
 struct StackNode* newNode(int data);
-
+int isEmpty(struct StackNode* root);
+void push(struct StackNode** root, int data);
+int pop(struct StackNode** root);
+int peek(struct StackNode* root);
 // A structure to represent a stack
 struct StackNode {
   // initialization of data
@@ -75,9 +78,30 @@ int pop(struct StackNode** root) {
   }
 }
 
-/**/
+/* This function takes in a pointer to a root
+and merely lets you see whats in the data. */
+int peek(struct StackNode* root) {
+  // if root is empty then return INT_MIN
+  // else return data
+  if (isEmpty(root)) {
+    return INT_MIN;
+  }
+  else {
+    return root->data;
+  }
+}
 
+// main driver
 int main(void) {
-  printf("Hello World\n");
+  // set struct root equal to NULL
+  struct StackNode* root = NULL;
+
+  // push data
+  push(&root, 10);
+  push(&root, 20);
+  push(&root, 30);
+
+  printf("%d popped from stack\n", pop(&root));
+  printf("Top element is %d\n", peek(root));
   return 0;
 }
